@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  application-post:
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: application-post
+    container_name: application-post
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+    networks:
+      - application-post-network
+
+networks:
+  application-post-network:
+    driver: bridge

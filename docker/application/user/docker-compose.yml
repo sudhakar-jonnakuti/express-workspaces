@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  application-user:
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: application-user
+    container_name: application-user
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    networks:
+      - application-user-network
+
+networks:
+  application-user-network:
+    driver: bridge

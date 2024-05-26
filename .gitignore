@@ -1,0 +1,8 @@
+node_modules
+
+application/post/dist
+application/user/dist
+
+package/error/dist
+package/exception/dist
+package/response/dist

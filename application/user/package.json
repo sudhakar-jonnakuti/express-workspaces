@@ -1,0 +1,21 @@
+{
+  "name": "@express-workspaces/user",
+  "version": "1.0.0",
+  "description": "The express workspaces user application",
+  "main": "./dist/cjs/index.js",
+  "scripts": {
+    "application:user": "npm-run-all application:user:*",
+    "application:user:format": "prettier --config .prettierrc src/**/*.ts --write",
+    "application:user:lint": "eslint . --ext .ts",
+    "application:user:typecheck": "tsc -noEmit",
+    "application:user:build": "rm -rf ./dist ./node_modules && node esbuild.js",
+    "start:developer:application:user": "cross-env MUSER_ENV=DEV MUSER_PORT=5000 node ./dist/cjs/index.js"
+  },
+  "keywords": [],
+  "author": "Sudhakar Jonnakuti",
+  "dependencies": {
+    "@express-workspaces/error": "^1.0.0",
+    "@express-workspaces/exception": "^1.0.0",
+    "@express-workspaces/response": "^1.0.0"
+  }
+}

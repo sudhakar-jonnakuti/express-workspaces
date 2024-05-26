@@ -1,0 +1,27 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["prettier", "@typescript-eslint", "simple-import-sort"],
+  "extends": [
+    "prettier",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "ignorePatterns": ["dist", ".eslintrc", "esbuild.js", "tsconfig.json"],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "eslint-disable-next-line": "off",
+    "prettier/prettier": [
+      "warn",
+      {
+        "printWidth": 80,
+        "endOfLine": "lf",
+        "trailingComma": "none"
+      }
+    ],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error"
+  }
+}

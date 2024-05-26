@@ -1,0 +1,21 @@
+{
+  "name": "@express-workspaces/response",
+  "version": "1.0.0",
+  "description": "The express workspaces response package",
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/types/src/index.d.ts",
+  "scripts": {
+    "package:response": "npm-run-all package:response:*",
+    "package:response:format": "prettier --config .prettierrc src/**/*.ts --write",
+    "package:response:lint": "eslint . --ext .ts",
+    "package:response:typecheck": "tsc -noEmit",
+    "package:response:build": "rm -rf ./dist ./node_modules && node esbuild.js",
+    "package:response:declaration": "tsc --emitDeclarationOnly --outDir ./dist/types"
+  },
+  "keywords": [],
+  "author": "Sudhakar Jonnakuti",
+  "license": "ISC",
+  "dependencies": {
+    "@express-workspaces/error": "^1.0.0"
+  }
+}

@@ -1,0 +1,72 @@
+# Stage 1: Setup a home directory
+FROM node:20-alpine AS base
+RUN mkdir -p /home/mono-user
+RUN chown -R node:node /home/mono-user && chmod -R 770 /home/mono-user
+WORKDIR /home/mono-user
+
+# Stage 1: Application : User : Install and Run
+FROM base AS application-user
+WORKDIR /home/mono-user
+COPY --chown=node:node ./package.json ./package.json
+COPY --chown=node:node ./package-lock.json ./package-lock.json
+COPY --chown=node:node ./tsconfig.base.json ./tsconfig.base.json
+COPY --chown=node:node ./tsconfig.json ./tsconfig.json
+
+USER node
+RUN mkdir -p /home/mono-user/package/error
+
+COPY --chown=node:node ./package/error/src ./package/error/src
+COPY --chown=node:node ./package/error/.eslintrc ./package/error/.eslintrc
+COPY --chown=node:node ./package/error/.prettierignore ./package/error/.prettierignore
+COPY --chown=node:node ./package/error/.prettierrc ./package/error/.prettierrc
+COPY --chown=node:node ./package/error/esbuild.js ./package/error/esbuild.js
+COPY --chown=node:node ./package/error/package.json ./package/error/package.json
+COPY --chown=node:node ./package/error/tsconfig.json ./package/error/tsconfig.json
+
+USER node
+RUN mkdir -p /home/mono-user/package/response
+
+COPY --chown=node:node ./package/response/src ./package/response/src
+COPY --chown=node:node ./package/response/.eslintrc ./package/response/.eslintrc
+COPY --chown=node:node ./package/response/.prettierrc ./package/response/.prettierrc
+COPY --chown=node:node ./package/response/.prettierignore ./package/response/.prettierignore
+COPY --chown=node:node ./package/response/esbuild.js ./package/response/esbuild.js
+COPY --chown=node:node ./package/response/package.json ./package/response/package.json
+COPY --chown=node:node ./package/response/tsconfig.json ./package/response/tsconfig.json
+
+USER node
+RUN mkdir -p /home/mono-user/package/exception
+
+COPY --chown=node:node ./package/exception/src ./package/exception/src
+COPY --chown=node:node ./package/exception/.eslintrc ./package/exception/.eslintrc
+COPY --chown=node:node ./package/exception/.prettierrc ./package/exception/.prettierrc
+COPY --chown=node:node ./package/exception/.prettierignore ./package/exception/.prettierignore
+COPY --chown=node:node ./package/exception/esbuild.js ./package/exception/esbuild.js
+COPY --chown=node:node ./package/exception/package.json ./package/exception/package.json
+COPY --chown=node:node ./package/exception/tsconfig.json ./package/exception/tsconfig.json
+
+USER node
+RUN mkdir -p /home/mono-user/application/user
+
+COPY --chown=node:node ./application/user/src ./application/user/src
+COPY --chown=node:node ./application/user/.eslintrc ./application/user/.eslintrc
+COPY --chown=node:node ./application/user/.prettierrc ./application/user/.prettierrc
+COPY --chown=node:node ./application/user/.prettierignore ./application/user/.prettierignore
+COPY --chown=node:node ./application/user/esbuild.js ./application/user/esbuild.js
+COPY --chown=node:node ./application/user/package.json ./application/user/package.json
+COPY --chown=node:node ./application/user/tsconfig.json ./application/user/tsconfig.json
+
+USER node
+RUN npm install --loglevel warn
+RUN npm run package:error
+RUN npm run package:response
+RUN npm run package:exception
+RUN npm run application:user
+
+# Set APP_PORT environment variable
+ENV MUSER_ENV=DEV 
+ENV MUSER_PORT=5000
+
+USER node
+# Run the application
+CMD npm run start:developer:application:user

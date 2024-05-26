@@ -1,0 +1,22 @@
+{
+  "name": "@express-workspaces/post",
+  "version": "1.0.0",
+  "description": "The express workspaces post application",
+  "main": "./dist/cjs/index.js",
+  "scripts": {
+    "application:post": "npm-run-all application:post:*",
+    "application:post:format": "prettier --config .prettierrc src/**/*.ts --write",
+    "application:post:lint": "eslint . --ext .ts",
+    "application:post:typecheck": "tsc -noEmit",
+    "application:post:build": "rm -rf ./dist ./node_modules && node esbuild.js",
+    "start:developer:application:post": "cross-env MPOST_ENV=DEV MPOST_PORT=5001 node ./dist/cjs/index.js"
+  },
+  "keywords": [],
+  "author": "Sudhakar Jonnakuti",
+  "license": "ISC",
+  "dependencies": {
+    "@express-workspaces/error": "^1.0.0",
+    "@express-workspaces/exception": "^1.0.0",
+    "@express-workspaces/response": "^1.0.0"
+  }
+}

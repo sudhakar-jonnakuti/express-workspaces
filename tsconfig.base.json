@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "incremental": true,
+    "target": "es2020",
+    "module": "CommonJS",
+    "declaration": true,
+    "sourceMap": true,
+    "alwaysStrict": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "composite": true
+  }
+}

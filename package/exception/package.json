@@ -1,0 +1,22 @@
+{
+  "name": "@express-workspaces/exception",
+  "version": "1.0.0",
+  "description": "The express workspaces exception package",
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/types/src/index.d.ts",
+  "scripts": {
+    "package:exception": "npm-run-all package:exception:*",
+    "package:exception:format": "prettier --config .prettierrc src/**/*.ts --write",
+    "package:exception:typecheck": "tsc -noEmit",
+    "package:exception:lint": "eslint . --ext .ts",
+    "package:exception:build": "rm -rf ./dist ./node_modules && node esbuild.js",
+    "package:exception:declaration": "tsc --emitDeclarationOnly --outDir ./dist/types"
+  },
+  "keywords": [],
+  "author": "Sudhakar Jonnakuti",
+  "license": "ISC",
+  "dependencies": {
+    "@express-workspaces/error": "^1.0.0",
+    "@express-workspaces/response": "^1.0.0"
+  }
+}
